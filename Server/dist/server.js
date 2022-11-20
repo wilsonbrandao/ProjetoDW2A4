@@ -10,6 +10,6 @@ const app = express();
 app.use((0, cors_1.default)());
 app.use(express.json());
 app.use(route_1.routes);
-app.listen(3333, () => {
-    console.log("HTTP server listening on port " + 3333);
+app.listen(process.env.PORT || 3333, () => {
+    console.log("HTTP server running");
 });
