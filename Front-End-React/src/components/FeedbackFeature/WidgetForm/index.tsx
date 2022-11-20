@@ -4,6 +4,8 @@ import { useState } from "react";
 import bugImageUrl from "../../../assets/bug.svg";
 import ideaImageUrl from "../../../assets/idea.svg";
 import thoughtImageUrl from "../../../assets/thought.svg";
+import thoughthumbsupUrl from "../../../assets/thumbs-up.svg";
+
 import { FeedbackTypeStep } from "./Steps/FeedbackTypeStep";
 import { FeedbackContentStep } from "./Steps/FeedbackContentStep";
 import { FeedbackSeccessStep } from "./Steps/FeedbackSuccessStep";
@@ -29,6 +31,13 @@ export const feedbackTypes = {
         title: "Outro",
         image: {
             source: thoughtImageUrl,
+            alt: "Imagem de umbalão de pensamento"
+        }
+    },
+    LIKE: {
+        title: "Gostei",
+        image: {
+            source: thoughthumbsupUrl,
             alt: "Imagem de umbalão de pensamento"
         }
     }
@@ -69,7 +78,7 @@ export function WidgetForm() {
             )}
 
             <footer className="text-xs text-neutral-400">
-                Feito com ♥ pela <a className="underline underline-offset-1" href="https://github.com/wilsonbrandao">Wilson Brandão</a>
+                Feito com ♥ por <a className="underline underline-offset-1" href="https://github.com/wilsonbrandao">Wilson Brandão</a>
             </footer>
         </div>
     );

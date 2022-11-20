@@ -9,16 +9,14 @@ interface MainContentProps {
 
 
 export function MainContent({getCity}: MainContentProps ) {
-    const [searchDataCovid, setSearchDataCovid] = useState<string>('SP')
-    
+   
     function getEstado(uf: string) {
-        setSearchDataCovid(uf)   
+        getCity(uf)
     }
     
     return (
         <main className="flex flex-col items-center">
             <InputCEP getEstado={getEstado} />
-            <CardsCovidItem uf={searchDataCovid} getCityName={getCity} />
         </main>
     )
 }

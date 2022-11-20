@@ -14,32 +14,31 @@ interface covidDataRepository {
 
 interface CardsCovidItemProps {
     uf: string;
-    getCityName:  (parameter: string) => void;
+    getCityName: (parameter: string) => void;
 }
 
 
 
-export function CardsCovidItem({ uf, getCityName}: CardsCovidItemProps) {
-    const [estadoUF, setEstadoUF] = useState<string>('SP')
-    
+export function CardsCovidItem({ uf, getCityName }: CardsCovidItemProps) {
+    const [covidData, setCovidData] = useState<covidDataRepository[]>([
+        {
+            uf: 0,
+            state: 0,
+            cases: 0,
+            suspects: 0,
+            deaths: 0,
+        }
+    ])
 
-    const [covidData, setCovidData] = useState<covidDataRepository[]>([{
-        uf: "SP",
-        state: "São Paulo",
-        cases: '34.908.198',
-        suspects: '34.908.198',
-        deaths: '34.908.198'
-    }])
 
-   
-    useEffect(() => {
-        setEstadoUF(uf)
-        fetch(`https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/${estadoUF}`).then(response => response.json()).then(data => {
-            setCovidData([data])
-            getCityName(data.state)
-            console.log(covidData, data.state)
-        })
-    }, [estadoUF, uf])
+    if (covidData[0].uf != uf)
+        fetch(`https://covid19-brazil-api.now.sh/api/report/v1/brazil/uf/${uf}`)
+            .then(response => response.json())
+            .then(data => {
+                setCovidData([data])
+                getCityName(data.state)
+            })
+
 
     return (
         <>
@@ -50,7 +49,7 @@ export function CardsCovidItem({ uf, getCityName}: CardsCovidItemProps) {
                     <h3>
                         <span className="font-bold mb-1 text-center text-xl">Casos Confirmados</span>
                     </h3>
-                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].cases}</p>
+                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].cases.toLocaleString()}</p>
                 </div>
 
                 <div
@@ -59,7 +58,7 @@ export function CardsCovidItem({ uf, getCityName}: CardsCovidItemProps) {
                     <h3>
                         <span className="font-bold mb-1 text-center text-xl">Total Suspeitos</span>
                     </h3>
-                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].suspects}</p>
+                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].suspects.toLocaleString()}</p>
                 </div>
 
                 <div
@@ -68,7 +67,7 @@ export function CardsCovidItem({ uf, getCityName}: CardsCovidItemProps) {
                     <h3>
                         <span className="font-bold mb-1 text-center text-xl">Total Óbitos</span>
                     </h3>
-                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].deaths}</p>
+                    <p className="text-3xl mt-6 font-bold h-full">{covidData[0].deaths.toLocaleString()}</p>
                 </div>
             </section>
         </>
